@@ -1,0 +1,282 @@
+╔══════════════════════════════════════════════════════════════════╗
+║          mmm Language — How to Use / 사용법                      ║
+║          (Read this or suffer the consequences / 안 읽으면 후회)  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ RUNNING mmm_L IDE / 실행 방법
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  EN: 1. Install Node.js (https://nodejs.org)
+      2. Open terminal, navigate to the mmm_L folder
+      3. First time only: npm install
+      4. Run:           npm start
+      5. Write code in the editor and press ▶ Run or F5
+
+  KR: 1. Node.js 를 설치하세요 (https://nodejs.org)
+      2. 터미널에서 mmm_L 폴더로 이동
+      3. 처음 한 번만: npm install
+      4. 실행:        npm start
+      5. 코드 작성 후 ▶ 실행 버튼 또는 F5 를 누르세요
+
+  Works offline / 오프라인에서 동작합니다.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ KEYBOARD SHORTCUTS / 단축키
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  F5              Run code / 실행
+  F1              Help / 도움말
+  Ctrl+S          Save / 저장
+  Ctrl+Shift+S    Save As / 다른 이름으로 저장
+  Ctrl+O          Open file / 열기
+  Ctrl+N          New file / 새 파일
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ KEY RULES / 핵심 규칙
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  EN: - Every statement MUST end with ~
+      - Exception: a single print() line does NOT need ~
+      - Variable names cannot start with a number
+      - File extension: .mmm
+
+  KR: - 모든 문장은 반드시 ~ 로 끝나야 합니다!
+      - 예외: print() 한 줄만 쓸 때는 ~ 생략 가능
+      - 변수 이름은 숫자로 시작할 수 없습니다
+      - 파일 확장자: .mmm
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 1. PRINT / 출력
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Syntax:  print(value)~
+
+  Examples / 예시:
+    print('Hello!')~                  -> prints: Hello!
+    print(1 + 1)~                     -> prints: 2
+    print(10 * 5)~                    -> prints: 50
+    print('Score: ' + 100)~          -> prints: Score: 100
+
+  ★ When print is the ONLY line, ~ is optional:
+  ★ print 한 줄만 있을 때는 ~ 없어도 됩니다:
+    print('Hello')                    <- works fine! / 동작함!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 2. VARIABLES / 변수
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Syntax:  변수야나와라 name = value~
+
+  EN: The keyword "변수야나와라" means "Hey variable, come out!"
+      Use the same keyword to update (re-declare) a variable.
+
+  KR: "변수야나와라"로 변수를 선언합니다.
+      같은 키워드로 값을 변경할 수 있습니다.
+
+  Examples / 예시:
+    변수야나와라 name = 'Kim'~
+    변수야나와라 age = 20~
+    변수야나와라 score = 100~
+    print(name)~
+    print(age)~
+
+    # Update a variable / 값 변경:
+    변수야나와라 count = 0~
+    변수야나와라 count = count + 1~
+    print(count)~                     -> prints: 1
+
+  Variable name rules / 변수 이름 규칙:
+    - Start with letter, Korean, or _ / 문자, 한글, 밑줄로 시작
+    - Cannot start with a number / 숫자로 시작 불가
+    - OK: name, 이름, my_var, 점수1, _temp
+    - BAD: 1abc, 2score (error! / 오류!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 3. DATA TYPES / 자료형
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Numbers / 숫자:   42, 3.14, -7
+  Strings / 문자열: 'single quotes' or "double quotes"
+  Boolean / 불리언:
+    참   = true
+    거짓 = false
+
+  Escape sequences in strings / 이스케이프:
+    \n  newline / 줄바꿈
+    \t  tab / 탭
+    \\  backslash / 역슬래시
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 4. OPERATORS / 연산자
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Arithmetic / 산술:
+    +   add / 더하기         5 + 3 = 8
+    -   subtract / 빼기      5 - 3 = 2
+    *   multiply / 곱하기    5 * 3 = 15
+    /   divide / 나누기      10 / 4 = 2.5
+    %   modulo / 나머지      10 % 3 = 1
+
+  String concat / 문자열 합치기:
+    'Hello' + ' World' = 'Hello World'
+    'Score: ' + 100    = 'Score: 100'
+
+  Comparison / 비교:
+    ==  equal / 같다
+    !=  not equal / 다르다
+    <   less than / 작다
+    >   greater than / 크다
+    <=  less or equal / 작거나 같다
+    >=  greater or equal / 크거나 같다
+
+  Logic / 논리:
+    그리고   and (both true / 둘 다 참)
+    아니면   or  (either true / 하나라도 참)
+    부정     not (opposite / 반대)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 5. IF STATEMENT / 조건문
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Syntax:
+    이봐만약에(condition)~     <- "Hey, if this is true..."
+        command~
+    아니면어쩔건데~            <- "Or what are you gonna do?" (else)
+        command~
+    이봐끝났어~               <- "Hey, it's done!" (end if) REQUIRED!
+
+  EN: "아니면어쩔건데" (else) is optional.
+      "이봐끝났어~" (end if) is ALWAYS required!
+
+  KR: 아니면어쩔건데 는 생략 가능합니다.
+      이봐끝났어~ 는 반드시 필요합니다!
+
+  Example / 예시:
+    변수야나와라 score = 85~
+    이봐만약에(score >= 90)~
+        print('A grade')~
+    아니면어쩔건데~
+        이봐만약에(score >= 80)~
+            print('B grade')~
+        아니면어쩔건데~
+            print('C or below')~
+        이봐끝났어~
+    이봐끝났어~
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 6. FOR LOOP / 반복문 (횟수 지정)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Syntax:
+    반복해라(N)~              <- "Repeat this!" N times
+        command~
+    반복끝~                  <- "Repetition is done!"
+
+  EN: Repeats the block N times. N must be a positive integer.
+  KR: N번 반복합니다. N은 양의 정수여야 합니다.
+
+  Example / 예시:
+    반복해라(5)~
+        print('Hello!')~
+    반복끝~
+
+    변수야나와라 n = 3~
+    반복해라(n)~
+        print('Repeat!')~
+    반복끝~
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 7. WHILE LOOP / 반복문 (조건)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Syntax:
+    계속해라(condition)~      <- "Keep going while true!"
+        command~
+    그만해~                  <- "Stop it!" (end while) REQUIRED!
+
+  EN: Repeats while condition is true.
+      Stops automatically after 100,000 steps (infinite loop protection).
+  KR: 조건이 참인 동안 반복합니다.
+      100,000번 초과 시 자동으로 멈춥니다.
+
+  Example / 예시 (1 to 5 / 1부터 5까지):
+    변수야나와라 i = 1~
+    계속해라(i <= 5)~
+        print(i)~
+        변수야나와라 i = i + 1~
+    그만해~
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 8. COMMENTS / 주석
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  # This is a comment / 이것은 주석입니다
+  // This is also a comment / 이것도 주석입니다
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 9. FULL EXAMPLE / 전체 예제
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  # Print even numbers from 1 to 10 / 1~10 중 짝수 출력
+  변수야나와라 i = 1~
+  계속해라(i <= 10)~
+      이봐만약에(i % 2 == 0)~
+          print(i)~
+      이봐끝났어~
+      변수야나와라 i = i + 1~
+  그만해~
+
+  # Multiplication table (2~3 dan) / 구구단 2~3단
+  변수야나와라 단 = 2~
+  계속해라(단 <= 3)~
+      변수야나와라 수 = 1~
+      계속해라(수 <= 9)~
+          print(단 * 수)~
+          변수야나와라 수 = 수 + 1~
+      그만해~
+      변수야나와라 단 = 단 + 1~
+  그만해~
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 10. COMMON ERRORS / 자주 발생하는 오류
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Error message                        Fix
+  ─────────────────────────────────────────────────────────────
+  "~ 없이 문장을 끝내는 행위"          Add ~ at the end / 끝에 ~ 붙이기
+  "변수가 선언되지 않았습니다"          Use 변수야나와라 first / 먼저 선언
+  "따옴표를 닫지 않으셨습니다"          Close the quote / 닫는 따옴표 확인
+  "숫자로 시작할 수 없습니다"           Change first char / 첫 글자 변경
+  "이봐끝났어~ 로 if문을 끝내야"       Add 이봐끝났어~ / 추가하세요
+  "반복끝~ 으로 끝내야"                Add 반복끝~ / 추가하세요
+  "그만해~ 로 반복문을 끝내야"         Add 그만해~ / 추가하세요
+  "무한루프를 발견했습니다"             Fix the while condition / 조건 수정
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ KEYWORD CHEAT SHEET / 키워드 요약
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Korean keyword       Meaning        English equivalent
+  ─────────────────────────────────────────────────────
+  변수야나와라         변수 선언      var / let
+  print                출력           print
+  이봐만약에           조건문         if
+  아니면어쩔건데       else           else
+  이봐끝났어           if 종료        end if
+  반복해라             for 반복       for
+  반복끝               for 종료       end for
+  계속해라             while 반복     while
+  그만해               while 종료     end while
+  참                   true           true
+  거짓                 false          false
+  그리고               and            and
+  아니면               or             or
+  부정                 not            not
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  EN: If you have read this, congratulations. You are now a
+      certified mmm language developer. Good luck.
+  KR: 이 문서를 다 읽으셨다면 이미 mmm 언어 전문가입니다.
+      읽지 않으셨다면... 본인 잘못입니다.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

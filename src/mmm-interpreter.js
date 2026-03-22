@@ -280,6 +280,13 @@ class Parser {
     return this.advance();
   }
 
+  // print에서만 쓰는 ~ 선택적 소비: EOF 앞이면 생략 가능
+  optionalTildeForPrint() {
+    const t = this.cur();
+    if (t.type === TT.TILDE) this.advance();
+    // EOF이면 ~ 없어도 ok (print 단독 한 줄 사용 허용)
+  }
+
   parse() {
     const body = [];
     while (this.cur().type !== TT.EOF) {
@@ -343,7 +350,8 @@ class Parser {
     this.expect(TT.LPAREN, "'('");
     const expr = this.parseExpr();
     this.expect(TT.RPAREN, "')'");
-    this.expectTilde('print(...)');
+    // print는 한 문장만 있을 때 ~ 생략 가능 (EOF 바로 앞이면 ok)
+    this.optionalTildeForPrint();
     return { type: 'Print', expr, line };
   }
 
