@@ -248,6 +248,35 @@ html, body {
 .out-prompt  { color: #4ec994; }   /* 프롬프트 C:\mmm_L> */
 .out-cmd     { color: #569cd6; }   /* 명령어 줄 */
 
+/* ─── 터미널 입력 필드 ──────────────────────────── */
+.out-input-line {
+  display: flex;
+  align-items: center;
+}
+.out-input-prompt {
+  color: #dcdcaa;
+  white-space: pre;
+  flex-shrink: 0;
+}
+.out-input-field {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #555;
+  color: #ffffff;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 19px;
+  outline: none;
+  flex: 1;
+  min-width: 120px;
+  padding: 0 2px;
+  caret-color: #ffffff;
+}
+.out-input-field:disabled {
+  border-bottom-color: transparent;
+  color: #aaffaa;
+}
+
 /* ─── 상태바 ───────────────────────────────────── */
 #statusbar {
   background: var(--bg-statusbar);

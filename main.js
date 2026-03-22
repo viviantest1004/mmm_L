@@ -137,9 +137,14 @@ ipcMain.handle('save-file-as', async (_, { content }) => {
   }
 });
 
-ipcMain.handle('run-code', (_, code) => {
-  const interp = new Interpreter();
-  return interp.run(code);
+ipcMain.handle('run-code', async (event, code) => {
+  const interp = new Interpreter(async (prompt) => {
+    return new Promise((resolve) => {
+      event.sender.send('request-input', prompt);
+      ipcMain.once('got-input', (_, value) => resolve(value));
+    });
+  });
+  return await interp.run(code);
 });
 
 // ─── 앱 생명주기 ──────────────────────────────────

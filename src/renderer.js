@@ -158,6 +158,13 @@ async function saveAs() {
   }
 }
 
+// ─── 입력 요청 처리 ───────────────────────────────
+window.mmmAPI.onInputRequest((prompt) => {
+  termInputLine(prompt, (value) => {
+    window.mmmAPI.sendInput(value);
+  });
+});
+
 // ─── 메뉴/IPC 액션 수신 ───────────────────────────
 window.mmmAPI.onAction((action) => {
   switch (action) {
@@ -239,6 +246,36 @@ function termPrompt(label) {
   span.textContent = 'mmm ' + label;
   div.appendChild(span);
   output.appendChild(div);
+}
+
+function termInputLine(prompt, callback) {
+  const div = document.createElement('div');
+  div.className = 'out-input-line';
+
+  const promptSpan = document.createElement('span');
+  promptSpan.className = 'out-input-prompt';
+  promptSpan.textContent = prompt;
+
+  const inputEl = document.createElement('input');
+  inputEl.type = 'text';
+  inputEl.className = 'out-input-field';
+  inputEl.autocomplete = 'off';
+  inputEl.spellcheck = false;
+
+  div.appendChild(promptSpan);
+  div.appendChild(inputEl);
+  output.appendChild(div);
+  output.scrollTop = output.scrollHeight;
+  inputEl.focus();
+
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const val = inputEl.value;
+      inputEl.disabled = true;
+      output.scrollTop = output.scrollHeight;
+      callback(val);
+    }
+  });
 }
 
 function termPrint(text)   { appendLine(text, 'out-normal');  }
@@ -355,15 +392,28 @@ ${h('━━━ 7. While Loop ━━━━━━━━━━━━━━━━━
       command${hl('~')}
   ${kw('그만해')}${hl('~')}            ${cm('← REQUIRED!')}
 
-${h('━━━ 8. Comments ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
+${h('━━━ 8. Input ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
+
+  ${kw('변수야나와라')} x = ${kw('입력해라')}(${st("'메시지: '")})${hl('~')}
+
+  ${cm('★ Returns a number if the input looks like a number.')}
+  ${cm('★ Otherwise returns a string.')}
+
+  Example:
+  ${kw('변수야나와라')} 이름 = ${kw('입력해라')}(${st("'이름을 입력하세요: '")})${hl('~')}
+  ${kw('변수야나와라')} 나이 = ${kw('입력해라')}(${st("'나이를 입력하세요: '")})${hl('~')}
+  ${kw('print')}(${st("'안녕하세요, '")} + 이름 + ${st("'! 나이: '")} + 나이)${hl('~')}
+
+${h('━━━ 9. Comments ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
 
   ${cm('# single line comment')}
   ${cm('// also a comment')}
 
-${h('━━━ 9. Keywords ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
+${h('━━━ 10. Keywords ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
 
   ${kw('변수야나와라')}   variable declaration
   ${kw('print')}          print output
+  ${kw('입력해라')}       input (read from user)
   ${kw('이봐만약에')}     if
   ${kw('아니면어쩔건데')} else
   ${kw('이봐끝났어')}     end if

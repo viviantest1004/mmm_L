@@ -1,5 +1,5 @@
 // ===================================================
-// mmm Programming Language — Interpreter v1.0
+// mmm Programming Language — Interpreter v1.1
 // Do NOT modify this file unless you know what you are doing.
 // ===================================================
 
@@ -41,6 +41,7 @@ const TT = {
   KW_AND:     '그리고',
   KW_OR:      '아니면',
   KW_NOT:     '부정',
+  KW_INPUT:   '입력해라',
 };
 
 const KEYWORDS = new Map([
@@ -58,6 +59,7 @@ const KEYWORDS = new Map([
   ['그리고',         TT.KW_AND],
   ['아니면',         TT.KW_OR],
   ['부정',           TT.KW_NOT],
+  ['입력해라',       TT.KW_INPUT],
 ]);
 
 // ─── 에러 클래스 ──────────────────────────────────────
@@ -543,6 +545,15 @@ class Parser {
       this.expect(TT.RPAREN, "')'");
       return expr;
     }
+    // ─── 입력해라('prompt') ─────────────────────────
+    if (t.type === TT.KW_INPUT) {
+      const line = t.line;
+      this.advance(); // '입력해라'
+      this.expect(TT.LPAREN, "'('");
+      const prompt = this.parseExpr();
+      this.expect(TT.RPAREN, "')'");
+      return { type: 'Input', prompt, line };
+    }
 
     throw new MmmError(
       `'${t.value ?? t.type}'은(는) 값으로 사용할 수 없습니다! ` +
@@ -555,7 +566,8 @@ class Parser {
 
 // ─── 인터프리터 ──────────────────────────────────────
 class Interpreter {
-  constructor() {
+  constructor(inputFn = null) {
+    this.inputFn = inputFn;
     this.vars = new Map();
     this.output = [];
     this.stepCount = 0;
@@ -571,7 +583,7 @@ class Interpreter {
     }
   }
 
-  run(code) {
+  async run(code) {
     this.vars = new Map();
     this.output = [];
     this.stepCount = 0;
@@ -585,7 +597,7 @@ class Interpreter {
       const tokens = lexer.tokenize();
       const parser = new Parser(tokens);
       const ast = parser.parse();
-      this.execProgram(ast);
+      await this.execProgram(ast);
       return { success: true, output: this.output.join('\n') };
     } catch (e) {
       return {
@@ -596,38 +608,38 @@ class Interpreter {
     }
   }
 
-  execProgram(ast) {
-    for (const stmt of ast.body) this.execStmt(stmt);
+  async execProgram(ast) {
+    for (const stmt of ast.body) await this.execStmt(stmt);
   }
 
-  execStmt(stmt) {
+  async execStmt(stmt) {
     this.step();
     switch (stmt.type) {
       case 'VarDecl': {
-        const val = this.eval(stmt.value);
+        const val = await this.eval(stmt.value);
         this.vars.set(stmt.name, val);
         break;
       }
       case 'Print': {
-        const val = this.eval(stmt.expr);
+        const val = await this.eval(stmt.expr);
         this.output.push(this.toDisplay(val));
         break;
       }
       case 'If': {
-        const cond = this.eval(stmt.cond);
+        const cond = await this.eval(stmt.cond);
         const branch = this.isTruthy(cond) ? stmt.thenBody : stmt.elseBody;
-        for (const s of branch) this.execStmt(s);
+        for (const s of branch) await this.execStmt(s);
         break;
       }
       case 'While': {
-        while (this.isTruthy(this.eval(stmt.cond))) {
+        while (this.isTruthy(await this.eval(stmt.cond))) {
           this.step();
-          for (const s of stmt.body) this.execStmt(s);
+          for (const s of stmt.body) await this.execStmt(s);
         }
         break;
       }
       case 'For': {
-        const n = this.eval(stmt.count);
+        const n = await this.eval(stmt.count);
         if (typeof n !== 'number' || !Number.isFinite(n)) {
           throw new MmmError(
             `'반복해라'의 반복 횟수는 유한한 숫자여야 합니다! '${n}'은 숫자가 아닙니다!`,
@@ -643,7 +655,7 @@ class Interpreter {
         }
         for (let i = 0; i < count; i++) {
           this.step();
-          for (const s of stmt.body) this.execStmt(s);
+          for (const s of stmt.body) await this.execStmt(s);
         }
         break;
       }
@@ -652,7 +664,7 @@ class Interpreter {
     }
   }
 
-  eval(node) {
+  async eval(node) {
     this.step();
     switch (node.type) {
       case 'Num':  return node.val;
@@ -671,8 +683,24 @@ class Interpreter {
         return this.vars.get(node.name);
       }
 
+      case 'Input': {
+        if (!this.inputFn) {
+          throw new MmmError(
+            `'입력해라'를 사용하려면 입력 기능이 필요합니다! 이 환경에서는 지원되지 않습니다!`,
+            node.line
+          );
+        }
+        const promptStr = this.toDisplay(await this.eval(node.prompt));
+        const raw = await this.inputFn(promptStr);
+        const str = (raw ?? '').trim();
+        // 숫자처럼 생겼으면 숫자로 자동 변환
+        const num = parseFloat(str);
+        if (str !== '' && !isNaN(num) && String(num) === str) return num;
+        return str;
+      }
+
       case 'UnaryOp': {
-        const v = this.eval(node.expr);
+        const v = await this.eval(node.expr);
         if (node.op === 'not') return !this.isTruthy(v);
         if (node.op === 'neg') {
           if (typeof v !== 'number') {
@@ -688,14 +716,14 @@ class Interpreter {
 
       case 'BinOp': {
         if (node.op === 'and') {
-          return this.isTruthy(this.eval(node.left)) && this.isTruthy(this.eval(node.right));
+          return this.isTruthy(await this.eval(node.left)) && this.isTruthy(await this.eval(node.right));
         }
         if (node.op === 'or') {
-          return this.isTruthy(this.eval(node.left)) || this.isTruthy(this.eval(node.right));
+          return this.isTruthy(await this.eval(node.left)) || this.isTruthy(await this.eval(node.right));
         }
 
-        const L = this.eval(node.left);
-        const R = this.eval(node.right);
+        const L = await this.eval(node.left);
+        const R = await this.eval(node.right);
 
         switch (node.op) {
           case '+':

@@ -24,6 +24,7 @@
 |---|---|
 | `변수야나와라 name = value~` | Variable declaration |
 | `print(value)~` | Print output (the only easy thing) |
+| `입력해라('message')` | Read input from user |
 | `이봐만약에(condition)~` | if statement |
 | `아니면어쩔건데~` | else |
 | `이봐끝났어~` | end if |
@@ -50,6 +51,10 @@ print('Hello, ' + name)~
 반복해라(3)~
     print('Repeating!')~
 반복끝~
+
+# Input
+변수야나와라 이름 = 입력해라('이름을 입력하세요: ')~
+print('안녕하세요, ' + 이름 + '!')~
 
 # If statement
 변수야나와라 score = 85~
