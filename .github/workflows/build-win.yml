@@ -11,8 +11,11 @@ on:
         required: true
         default: 'v1.0.0'
 
+permissions:
+  contents: write
+
 jobs:
-  build-windows:
+  build-and-release:
     runs-on: windows-latest
 
     steps:
@@ -29,51 +32,15 @@ jobs:
         run: npm ci
 
       - name: Build Windows EXE (Installer + Portable)
-        run: npm run build:win
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build:win -- --publish never
 
-      - name: List build output
+      - name: List dist folder
         run: dir dist
         shell: cmd
 
-      - name: Upload Installer EXE
-        uses: actions/upload-artifact@v4
-        with:
-          name: mmm_L-Setup-x64
-          path: dist/*Setup*.exe
-          if-no-files-found: warn
-
-      - name: Upload Portable EXE
-        uses: actions/upload-artifact@v4
-        with:
-          name: mmm_L-Portable-x64
-          path: dist/*Portable*.exe
-          if-no-files-found: warn
-
-  release:
-    needs: build-windows
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Download Installer artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: mmm_L-Setup-x64
-          path: ./release
-
-      - name: Download Portable artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: mmm_L-Portable-x64
-          path: ./release
-
-      - name: Get version
+      - name: Get version tag
         id: version
+        shell: bash
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "tag=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
@@ -81,7 +48,7 @@ jobs:
             echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Create GitHub Release
+      - name: Create GitHub Release and upload EXEs
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}
@@ -93,17 +60,16 @@ jobs:
 
             | 파일 | 설명 |
             |------|------|
-            | `mmm_L Setup x64.exe` | **인스톨러** — 설치 후 사용 (권장) |
-            | `mmm_L Portable x64.exe` | **포터블** — 설치 없이 바로 실행 |
+            | `mmm_L Setup *.exe` | **인스톨러** — 설치 후 사용 (권장 / Recommended) |
+            | `mmm_L *.exe` (포터블) | **포터블** — 설치 없이 바로 실행 / No install needed |
 
-            ### 설치 방법
-            1. 인스톨러 또는 포터블 exe 다운로드
-            2. 실행
-            3. `.mmm` 파일을 열거나 코드를 직접 입력
-            4. F5 또는 ▶ 실행 버튼으로 코드 실행
+            ### 실행 방법 / How to run
+            - 인스톨러: 다운받아 실행 → 설치 → 바탕화면 mmm_L 아이콘 클릭
+            - 포터블: 다운받아 바로 더블클릭
 
-            > 오프라인에서도 완전히 동작합니다.
-          files: ./release/*.exe
+            > 오프라인에서도 완전히 동작합니다 / Works fully offline.
+          files: |
+            dist/*.exe
           draft: false
           prerelease: false
         env:

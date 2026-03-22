@@ -68,6 +68,12 @@ editor.value = DEFAULT_CODE;
 updateLineNumbers();
 setStatus('준비 완료. F5 또는 ▶ 실행 버튼을 누르면 코드가 실행됩니다.');
 
+// 터미널 초기 메시지 (CMD 스타일)
+termInfo('Microsoft mmm_L  [버전 1.0.0]');
+termInfo('(c) mmm 언어 재단. All rights reserved.');
+termPrint('');
+termInfo('F5 또는 ▶ 실행 버튼으로 mmm 코드를 실행하십시오.');
+
 // ─── 줄 번호 갱신 ─────────────────────────────────
 function updateLineNumbers() {
   const lines = editor.value.split('\n');
@@ -209,42 +215,75 @@ ipcRenderer.on('action', (event, action) => {
 
 // ─── 코드 실행 ────────────────────────────────────
 function runCode() {
-  clearOutput();
   const code = editor.value;
+  const filename = tabLabel.textContent.replace(/^\* /, '') || 'untitled.mmm';
+
+  termPrint(''); // 빈 줄
+  termPrompt(`mmm ${filename}`);  // C:\mmm_L> 스타일 프롬프트
+  termCmd('mmm ' + filename);
 
   if (!code.trim()) {
-    appendOutput('코드가 비어 있습니다. 뭔가를 입력하십시오!', 'out-info');
+    termError("오류: 코드가 비어 있습니다. 뭔가를 입력하십시오!");
+    setStatus('코드 없음');
+    output.scrollTop = output.scrollHeight;
     return;
   }
 
   setStatus('실행 중...');
-  appendOutput('▶ 실행 시작\n', 'out-info');
 
-  // 실행 (동기)
   const interp = new Interpreter();
   const start  = Date.now();
   const result = interp.run(code);
   const elapsed = Date.now() - start;
 
+  // 출력 결과
   if (result.output) {
     for (const line of result.output.split('\n')) {
-      appendOutput(line, 'out-normal');
+      termPrint(line);
     }
   }
 
   if (result.success) {
-    appendOutput(`\n✔ 실행 완료 (${elapsed}ms)`, 'out-success');
+    termPrint('');
+    termSuccess(`프로세스 완료, 종료 코드 0  (${elapsed}ms)`);
     setStatus(`실행 완료 — ${elapsed}ms`);
   } else {
-    appendOutput(`\n✘ 오류 발생:\n${result.error}`, 'out-error');
-    setStatus('오류 발생. 출력창을 확인하십시오.');
+    termPrint('');
+    // 에러를 줄별로 분리해서 표시
+    for (const line of result.error.split('\n')) {
+      termError(line);
+    }
+    termPrint('');
+    termWarning(`프로세스 실패, 종료 코드 1  (${elapsed}ms)`);
+    setStatus('오류 발생 — 터미널을 확인하세요');
   }
 
-  // 출력 맨 아래로 스크롤
   output.scrollTop = output.scrollHeight;
 }
 
-// ─── 출력 유틸 ────────────────────────────────────
+// ─── 터미널 출력 유틸 ─────────────────────────────
+function termPrint(text)   { appendOutput(text, 'out-normal'); }
+function termError(text)   { appendOutput(text, 'out-error'); }
+function termSuccess(text) { appendOutput(text, 'out-success'); }
+function termWarning(text) { appendOutput(text, 'out-warning'); }
+function termInfo(text)    { appendOutput(text, 'out-info'); }
+
+function termPrompt(label) {
+  // C:\mmm_L> 스타일
+  const div = document.createElement('div');
+  div.className = 'out-prompt';
+  div.textContent = `C:\\mmm_L> `;
+  const span = document.createElement('span');
+  span.className = 'out-cmd';
+  span.textContent = label;
+  div.appendChild(span);
+  output.appendChild(div);
+}
+
+function termCmd(text) {
+  // 명령어만 따로 (프롬프트 없이)
+}
+
 function appendOutput(text, cls = 'out-normal') {
   const div = document.createElement('div');
   div.className = cls;
@@ -253,7 +292,11 @@ function appendOutput(text, cls = 'out-normal') {
 }
 
 function clearOutput() {
+  // cls 명령처럼 화면 지우기
   output.innerHTML = '';
+  termInfo('Microsoft mmm_L  [버전 1.0.0]');
+  termInfo('(c) mmm 언어 재단. All rights reserved.');
+  termPrint('');
 }
 
 function setStatus(msg) {
