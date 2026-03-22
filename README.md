@@ -3,6 +3,8 @@
 > **mmm Programming Language** — A Korean esoteric programming language inspired by 엄랭.
 > `mmm_L` is the IDE for mmm Programming Language. (L = Language)
 
+> 🤖 **This entire project — the language, interpreter, and IDE — was fully built by [Claude Code](https://claude.ai/claude-code) (Anthropic).**
+
 ---
 
 ## Features of mmm Programming Language
