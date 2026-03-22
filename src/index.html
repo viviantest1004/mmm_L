@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+  <title>mmm_L</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ─── 툴바 ─────────────────────────── -->
+<div id="toolbar">
+  <div class="toolbar-brand">
+    mmm_L <span>— mmm 언어 통합 개발 환경</span>
+  </div>
+  <div class="toolbar-actions">
+    <button class="btn" id="btn-new"   title="새 파일 (Ctrl+N)">새 파일</button>
+    <button class="btn" id="btn-open"  title="열기 (Ctrl+O)">열기</button>
+    <button class="btn" id="btn-save"  title="저장 (Ctrl+S)">저장</button>
+    <button class="btn btn-run" id="btn-run" title="실행 (F5)">▶ 실행</button>
+    <button class="btn" id="btn-help"  title="도움말 (F1)">?  도움말</button>
+  </div>
+</div>
+
+<!-- ─── 탭바 ─────────────────────────── -->
+<div id="tabbar">
+  <div class="tab active" id="tab-label">제목없음.mmm</div>
+</div>
+
+<!-- ─── 메인 ─────────────────────────── -->
+<div id="main">
+
+  <!-- 에디터 -->
+  <div id="editor-container">
+    <div id="line-numbers"></div>
+    <textarea id="editor" spellcheck="false" autocorrect="off" autocapitalize="off"
+      placeholder="# mmm 언어 코드를 여기에 입력하십시오.
+# 도움말(F1)을 먼저 읽어보시길 강력히 권장합니다."></textarea>
+  </div>
+
+  <!-- 출력 패널 -->
+  <div id="output-panel">
+    <div id="output-header">
+      <span>출력 (OUTPUT)</span>
+      <button class="btn-clear" id="btn-clear">지우기</button>
+    </div>
+    <div id="output"></div>
+  </div>
+
+</div>
+
+<!-- ─── 상태바 ─────────────────────── -->
+<div id="statusbar">
+  <span id="statusbar-left">mmm_L v1.0.0 — 준비 완료</span>
+  <div id="statusbar-right">
+    <span id="status-cursor">줄 1, 열 1</span>
+    <span>mmm 언어</span>
+    <span>UTF-8</span>
+  </div>
+</div>
+
+<!-- ─── 도움말 모달 ─────────────────── -->
+<div id="modal-overlay">
+  <div id="modal">
+    <div id="modal-title">
+      <span>mmm 언어 명세서 v1.0 (필독!)</span>
+      <button id="modal-close">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="mmm-interpreter.js"></script>
+<script src="renderer.js"></script>
+</body>
+</html>
