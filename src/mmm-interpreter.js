@@ -763,7 +763,4 @@ class Interpreter {
   }
 }
 
-// CommonJS 내보내기
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { Interpreter, MmmError };
-}
+module.exports = { Interpreter, MmmError };

@@ -2,7 +2,6 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
   <title>mmm_L</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,17 +13,17 @@
     mmm_L <span>— IDE for mmm Programming Language</span>
   </div>
   <div class="toolbar-actions">
-    <button class="btn" id="btn-new"   title="새 파일 (Ctrl+N)">새 파일</button>
-    <button class="btn" id="btn-open"  title="열기 (Ctrl+O)">열기</button>
-    <button class="btn" id="btn-save"  title="저장 (Ctrl+S)">저장</button>
-    <button class="btn btn-run" id="btn-run" title="실행 (F5)">▶ 실행</button>
-    <button class="btn" id="btn-help"  title="도움말 (F1)">?  도움말</button>
+    <button class="btn" id="btn-new"  title="New File (Ctrl+N)">New</button>
+    <button class="btn" id="btn-open" title="Open (Ctrl+O)">Open</button>
+    <button class="btn" id="btn-save" title="Save (Ctrl+S)">Save</button>
+    <button class="btn btn-run" id="btn-run" title="Run (F5)">▶ Run</button>
+    <button class="btn" id="btn-help" title="Help (F1)">? Help</button>
   </div>
 </div>
 
 <!-- ─── 탭바 ─────────────────────────── -->
 <div id="tabbar">
-  <div class="tab active" id="tab-label">제목없음.mmm</div>
+  <div class="tab active" id="tab-label">untitled.mmm</div>
 </div>
 
 <!-- ─── 메인 ─────────────────────────── -->
@@ -38,7 +37,7 @@
 # Please read the Help (F1) before you start."></textarea>
   </div>
 
-  <!-- 출력 패널 -->
+  <!-- 터미널 패널 -->
   <div id="output-panel">
     <div id="output-header">
       <div class="term-title">Terminal — mmm_L [CMD]</div>
@@ -53,7 +52,7 @@
 <div id="statusbar">
   <span id="statusbar-left">mmm_L v1.0.0 — Ready</span>
   <div id="statusbar-right">
-    <span id="status-cursor">줄 1, 열 1</span>
+    <span id="status-cursor">Line 1, Col 1</span>
     <span>mmm Programming Language</span>
     <span>UTF-8</span>
   </div>
@@ -70,7 +69,6 @@
   </div>
 </div>
 
-<script src="mmm-interpreter.js"></script>
 <script src="renderer.js"></script>
 </body>
 </html>
