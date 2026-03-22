@@ -1,34 +1,34 @@
-# mmm 언어 & mmm_L IDE
+# mmm Programming Language & mmm_L IDE
 
-> **대한민국이 낳은 위대한 난해 프로그래밍 언어, mmm**
-> 엄랭에서 영감을 받은 한국어 에소테릭 언어입니다.
-
----
-
-## mmm 언어 특징
-
-- 모든 문장은 반드시 `~`로 끝나야 합니다.
-- `print(값)~` 으로 출력합니다.
-- 문자열은 `'작은따옴표'` 또는 `"큰따옴표"` 사용.
-- `print(1 + 1)~` → `2` 출력.
-- 변수 이름은 숫자로 시작할 수 없습니다.
-- 나머지는 전부 어렵고 긴 한국어 키워드를 사용합니다.
+> **mmm Programming Language** — A Korean esoteric programming language inspired by 엄랭.
+> `mmm_L` is the IDE for mmm Programming Language. (L = Language)
 
 ---
 
-## 키워드 목록
+## Features of mmm Programming Language
 
-| 키워드 | 역할 |
+- Every statement must end with `~`.
+- Use `print(value)~` to print output.
+- Strings use single quotes `'like this'` or double quotes `"like this"`.
+- `print(1 + 1)~` → outputs `2`.
+- Variable names cannot start with a number.
+- All other syntax uses long, confusing Korean keywords (esoteric style).
+
+---
+
+## Keywords
+
+| Keyword | Role |
 |---|---|
-| `변수야나와라 이름 = 값~` | 변수 선언 |
-| `print(값)~` | 출력 |
-| `이봐만약에(조건)~` | if 문 시작 |
+| `변수야나와라 name = value~` | Variable declaration |
+| `print(value)~` | Print output (the only easy thing) |
+| `이봐만약에(condition)~` | if statement |
 | `아니면어쩔건데~` | else |
-| `이봐끝났어~` | if 문 종료 |
-| `반복해라(N)~` | N번 반복 (for) |
-| `반복끝~` | for 반복 종료 |
-| `계속해라(조건)~` | while 반복 |
-| `그만해~` | while 반복 종료 |
+| `이봐끝났어~` | end if |
+| `반복해라(N)~` | for loop (N times) |
+| `반복끝~` | end for |
+| `계속해라(condition)~` | while loop |
+| `그만해~` | end while |
 | `참` | true |
 | `거짓` | false |
 | `그리고` | and |
@@ -37,27 +37,27 @@
 
 ---
 
-## 예제
+## Example
 
 ```mmm
-# 변수 선언
-변수야나와라 이름 = '세계'~
-print('안녕, ' + 이름)~
+# Variable declaration
+변수야나와라 name = 'World'~
+print('Hello, ' + name)~
 
-# 반복
+# For loop
 반복해라(3)~
-    print('반복!')~
+    print('Repeating!')~
 반복끝~
 
-# 조건문
-변수야나와라 점수 = 85~
-이봐만약에(점수 >= 80)~
-    print('통과!')~
+# If statement
+변수야나와라 score = 85~
+이봐만약에(score >= 80)~
+    print('Pass!')~
 아니면어쩔건데~
-    print('탈락!')~
+    print('Fail!')~
 이봐끝났어~
 
-# while 반복
+# While loop
 변수야나와라 i = 1~
 계속해라(i <= 5)~
     print(i)~
@@ -67,33 +67,44 @@ print('안녕, ' + 이름)~
 
 ---
 
-## mmm_L IDE 실행 방법
+## Running mmm_L IDE
 
 ```bash
-# 의존성 설치
+# Install dependencies
 npm install
 
-# 개발 모드 실행
+# Run in development mode
 npm start
 
-# 빌드 (현재 플랫폼)
+# Build (current platform)
 npm run build
 
-# Windows exe 빌드
+# Build Windows exe
 npm run build:win
 
-# macOS 빌드
+# Build macOS
 npm run build:mac
 ```
 
-> **오프라인 지원**: 빌드된 앱은 인터넷 연결 없이도 동작합니다.
+> **Offline support**: The built app works fully without an internet connection.
 
 ---
 
-## 파일 확장자
+## Windows Download
 
-mmm 언어 파일은 `.mmm` 확장자를 사용합니다.
+Download the latest release from the [Releases page](../../releases):
+
+| File | Description |
+|------|-------------|
+| `mmm_L Setup *.exe` | Installer (recommended) |
+| `mmm_L *.exe` | Portable — run without installing |
 
 ---
 
-*이 README를 읽지 않으면 코딩이 불가능합니다.*
+## File Extension
+
+mmm Programming Language files use the `.mmm` extension.
+
+---
+
+*If you did not read this README, that is entirely your fault.*

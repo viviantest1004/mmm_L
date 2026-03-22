@@ -1,6 +1,6 @@
 // ===================================================
-// mmm 언어 인터프리터 v1.0
-// 이 파일을 수정하면 큰일납니다.
+// mmm Programming Language — Interpreter v1.0
+// Do NOT modify this file unless you know what you are doing.
 // ===================================================
 
 'use strict';
@@ -229,7 +229,7 @@ class Lexer {
         case '~': this.advance(); tokens.push(new Token(TT.TILDE,   '~', line)); break;
         default:
           throw new MmmError(
-            `'${c}' 이런 문자는 mmm 언어에 존재하지 않습니다! 키보드를 닦고 다시 확인하십시오!`,
+            `'${c}' 이런 문자는 mmm Programming Language에 존재하지 않습니다! 키보드를 닦고 다시 확인하십시오!`,
             line
           );
       }
@@ -272,7 +272,7 @@ class Parser {
     if (t.type !== TT.TILDE) {
       throw new MmmError(
         `'${stmtName}' 다음에 반드시 '~'를 붙여야 합니다! ` +
-        `'~' 없이 문장을 끝내는 행위는 mmm 언어에서 용납되지 않습니다! ` +
+        `'~' 없이 문장을 끝내는 행위는 mmm Programming Language에서 용납되지 않습니다! ` +
         `현재 토큰: '${t.value ?? t.type}'`,
         t.line
       );

@@ -77,23 +77,23 @@ function setupMenu() {
       label: '도움말(ㄷ)',
       submenu: [
         {
-          label: 'mmm 언어 명세서 (꼭 읽으세요)',
+          label: 'mmm Programming Language Spec (Please Read)',
           accelerator: 'F1',
           click: () => mainWindow.webContents.send('action', 'help'),
         },
         { type: 'separator' },
         {
-          label: 'mmm_L 정보',
+          label: 'About mmm_L',
           click: () => {
             dialog.showMessageBox(mainWindow, {
-              title: 'mmm_L 정보',
+              title: 'About mmm_L',
               message: 'mmm_L v1.0.0',
               detail:
-                'mmm 언어를 위한 통합 개발 환경\n\n' +
-                'mmm 언어는 대한민국이 낳은 위대한 난해 프로그래밍 언어입니다.\n' +
-                '이 IDE를 쓰고 계신다는 것 자체가 이미 대단한 일입니다.',
+                'IDE for mmm Programming Language\n\n' +
+                'mmm Programming Language is a Korean esoteric programming language.\n' +
+                'The fact that you are using this IDE is already impressive.',
               type: 'info',
-              buttons: ['확인 (알겠습니다)'],
+              buttons: ['OK'],
             });
           },
         },

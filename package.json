@@ -1,7 +1,7 @@
 {
   "name": "mmm-l",
   "version": "1.0.0",
-  "description": "mmm 언어 통합 개발 환경",
+  "description": "IDE for mmm Programming Language",
   "main": "main.js",
   "scripts": {
     "start": "electron .",

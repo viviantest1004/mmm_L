@@ -1,10 +1,10 @@
 ╔══════════════════════════════════════════════════════════════════╗
-║          mmm Language — How to Use / 사용법                      ║
+║          mmm Programming Language — How to Use / 사용법                      ║
 ║          (Read this or suffer the consequences / 안 읽으면 후회)  ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- RUNNING mmm_L IDE / 실행 방법
+ RUNNING mmm_L (IDE for mmm Programming Language) / 실행 방법
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   EN: 1. Install Node.js (https://nodejs.org)
@@ -276,7 +276,7 @@
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   EN: If you have read this, congratulations. You are now a
-      certified mmm language developer. Good luck.
+      certified mmm Programming Language developer. Good luck.
   KR: 이 문서를 다 읽으셨다면 이미 mmm 언어 전문가입니다.
       읽지 않으셨다면... 본인 잘못입니다.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

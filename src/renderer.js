@@ -17,12 +17,12 @@ let isDirty = false;
 
 // ─── 기본 예제 코드 ───────────────────────────────
 const DEFAULT_CODE = `# ══════════════════════════════════
-# mmm 언어 예제 프로그램
-# 모든 명령은 반드시 '~'로 끝나야 합니다!
+# mmm Programming Language — Example Program
+# Every statement MUST end with '~'
 # ══════════════════════════════════
 
-# 1. 출력하기
-print('안녕하세요, mmm 언어입니다!')~
+# 1. Print
+print('Hello, mmm Programming Language!')~
 print(1 + 1)~
 print(10 * 5 - 3)~
 
@@ -69,8 +69,8 @@ updateLineNumbers();
 setStatus('준비 완료. F5 또는 ▶ 실행 버튼을 누르면 코드가 실행됩니다.');
 
 // 터미널 초기 메시지 (CMD 스타일)
-termInfo('Microsoft mmm_L  [버전 1.0.0]');
-termInfo('(c) mmm 언어 재단. All rights reserved.');
+termInfo('mmm_L  [Version 1.0.0] — mmm Programming Language IDE');
+termInfo('(c) mmm Programming Language Foundation. All rights reserved.');
 termPrint('');
 termInfo('F5 또는 ▶ 실행 버튼으로 mmm 코드를 실행하십시오.');
 
@@ -336,9 +336,9 @@ function buildHelpHTML() {
   const cm = (s) => `<span class="cm">${s}</span>`;
   const hl = (s) => `<span class="hl">${s}</span>`;
 
-  return `${h('╔══════════════════════════════════════════════╗')}
-${h('║       mmm 언어 공식 명세서 v1.0 (필독)       ║')}
-${h('╚══════════════════════════════════════════════╝')}
+  return `${h('╔══════════════════════════════════════════════════╗')}
+${h('║  mmm Programming Language — Official Spec v1.0  ║')}
+${h('╚══════════════════════════════════════════════════╝')}
 
 ${cm('# 이 문서를 읽지 않으면 프로그래밍이 불가능합니다.')}
 ${cm('# 모든 문장은 반드시 ~ 로 끝나야 합니다!')}
